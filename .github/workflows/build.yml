@@ -21,6 +21,11 @@ jobs:
       uses: jetli/wasm-pack-action@v0.4.0
     - name: Build Wasm Package
       run: cd hayagriva_wrapper && wasm-pack build --target web
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        # Upload entire repository
+        path: '.'
 
   deploy:
     environment:
