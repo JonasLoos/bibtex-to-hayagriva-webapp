@@ -78,7 +78,6 @@ import init, { convert_biblatex_to_hayagriva } from './hayagriva_wrapper/pkg/hay
 
 async function run() {
   await init();
-  // Event handling code here, for example:
   document.getElementById("bibtexInput").addEventListener("input", () => {
     const bibtex = document.getElementById("bibtexInput").value;
     let hayagriva = "";
