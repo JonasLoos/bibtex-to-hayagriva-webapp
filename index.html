@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>BibTeX to Hayagriva</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    .flex-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .flex-container div {
+      min-height: 50%;
+      max-height: 50%;
+      max-width: 100%;
+      min-width: 100%;
+    }
+    #hayagrivaOutput {
+      border-top: 2px solid #ccc;
+    }
+    @media (min-width: 768px) {
+      .flex-container {
+        flex-direction: row;
+      }
+      .flex-container div {
+        min-height: 100%;
+        max-height: 100%;
+        max-width: 50%;
+        min-width: 50%;
+      }
+      #hayagrivaOutput {
+        border: none;
+        border-left: 2px solid #ccc;
+      }
+    }
+    textarea {
+      width: 94%;
+      height: 94%;
+      resize: none;
+      border: none;
+      padding: 3%;
+    }
+    .copy-button {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      border: none;
+      padding: .5em;
+      background-color: #999a;
+    }
+    .copy-button:hover {
+      background-color: #bbba;
+    }
+    .copy-button:active {
+      background-color: #ddda;
+    }
+  </style>
+</head>
+<body>
+  <div class="flex-container">
+    <div><textarea id="bibtexInput" placeholder="Paste your BibTeX here"></textarea></div>
+    <div><textarea id="hayagrivaOutput" placeholder="Your Hayagriva output will appear here" readonly></textarea></div>
+  </div>
+  <button class="copy-button" onclick="copyToClipboard()">Copy Output</button>
+  
+  <script type="module" src="hayagriva_wrapper/pkg/hayagriva_wrapper.js"></script>
+  <script type="module">
+import init, { convert_biblatex_to_hayagriva } from './hayagriva_wrapper/pkg/hayagriva_wrapper.js';
+
+async function run() {
+  await init();
+  // Event handling code here, for example:
+  document.getElementById("bibtexInput").addEventListener("input", () => {
+    const bibtex = document.getElementById("bibtexInput").value;
+    const hayagriva = convert_biblatex_to_hayagriva(bibtex);
+    // const hayagriva = bibtex;
+    document.getElementById("hayagrivaOutput").value = hayagriva;
+  });
+}
+
+run();
+  </script>
+  <script>
+async function copyToClipboard() {
+  const text = document.getElementById('hayagrivaOutput').value;
+  try {
+    await navigator.clipboard.writeText(text);
+    console.log('Content copied to clipboard');
+  } catch (err) {
+    console.error('Failed to copy: ', err);
+  }
+}
+  </script>
+</body>
+</html>
