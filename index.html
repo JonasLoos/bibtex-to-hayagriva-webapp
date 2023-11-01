@@ -27,6 +27,14 @@
     #hayagrivaOutput {
       border-top: 2px solid #ccc;
     }
+    .copy-button {
+      position: absolute;
+      top: 51vh;
+      right: 1vh;
+      border: none;
+      padding: .5em;
+      background-color: #999a;
+    }
     @media (min-width: 768px) {
       .flex-container {
         flex-direction: row;
@@ -41,6 +49,10 @@
         border: none;
         border-left: 2px solid #ccc;
       }
+      .copy-button {
+        top: 1em;
+        right: 1em;
+      }
     }
     textarea {
       width: 94%;
@@ -48,14 +60,6 @@
       resize: none;
       border: none;
       padding: 3%;
-    }
-    .copy-button {
-      position: absolute;
-      top: 1em;
-      right: 1em;
-      border: none;
-      padding: .5em;
-      background-color: #999a;
     }
     .copy-button:hover {
       background-color: #bbba;
