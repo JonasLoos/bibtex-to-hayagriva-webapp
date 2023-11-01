@@ -7,7 +7,11 @@ pub fn convert_biblatex_to_hayagriva(bib_str: &str) -> String {
     let result = from_biblatex_str(bib_str);
     match result {
         Ok(library) => {
-            return to_yaml_str(&library).expect("Error converting to YAML");
+            if library.is_empty() {
+                return "Error parsing Bibtex".to_string();
+            } else {
+                return to_yaml_str(&library).unwrap_or("Error converting to YAML".to_string());
+            }
         }
         Err(errors) => {
             let mut error_str = String::new();

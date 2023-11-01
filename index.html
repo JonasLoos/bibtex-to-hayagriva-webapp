@@ -81,8 +81,10 @@ async function run() {
   // Event handling code here, for example:
   document.getElementById("bibtexInput").addEventListener("input", () => {
     const bibtex = document.getElementById("bibtexInput").value;
-    const hayagriva = convert_biblatex_to_hayagriva(bibtex);
-    // const hayagriva = bibtex;
+    let hayagriva = "";
+    if (bibtex != "") {
+      hayagriva = convert_biblatex_to_hayagriva(bibtex);
+    }
     document.getElementById("hayagrivaOutput").value = hayagriva;
   });
 }
