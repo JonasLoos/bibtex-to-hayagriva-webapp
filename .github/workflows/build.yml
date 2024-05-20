@@ -20,7 +20,7 @@ jobs:
     - name: wasm-pack-action
       uses: jetli/wasm-pack-action@v0.4.0
     - name: Build Wasm Package
-      run: cd hayagriva_wrapper && wasm-pack build --target web
+      run: cd hayagriva_wrapper && wasm-pack build --target web --release --no-typescript --no-pack
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v2
       with:
