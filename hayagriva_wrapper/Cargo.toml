@@ -4,8 +4,8 @@ version = "0.1.1"
 edition = "2021"
 
 [dependencies]
-hayagriva = "0.5"
-wasm-bindgen = "0.2"
+hayagriva = "0.8.1"
+wasm-bindgen = "0.2.100"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
