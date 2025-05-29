@@ -27,13 +27,42 @@
     #hayagrivaOutput {
       border-top: 2px solid #ccc;
     }
-    .copy-button {
+    .button-container {
       position: absolute;
       top: 51vh;
       right: 1vh;
-      border: none;
-      padding: .5em;
-      background-color: #999a;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .copy-button {
+      border: 1px solid #ddd;
+      padding: 8px 16px;
+      background-color: #f8f9fa;
+      color: #333;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .info-button {
+      border: 1px solid #ddd;
+      padding: 6px 8px;
+      background-color: #f8f9fa;
+      color: #666;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
     }
     @media (min-width: 768px) {
       .flex-container {
@@ -49,7 +78,7 @@
         border: none;
         border-left: 2px solid #ccc;
       }
-      .copy-button {
+      .button-container {
         top: 1em;
         right: 1em;
       }
@@ -62,10 +91,31 @@
       padding: 3%;
     }
     .copy-button:hover {
-      background-color: #bbba;
+      background-color: #e9ecef;
+      border-color: #adb5bd;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     .copy-button:active {
-      background-color: #ddda;
+      background-color: #dee2e6;
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .copy-button.copied {
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+      color: #155724;
+    }
+    .info-button:hover {
+      background-color: #e9ecef;
+      border-color: #adb5bd;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .info-button:active {
+      background-color: #dee2e6;
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -74,7 +124,10 @@
     <div><textarea id="bibtexInput" placeholder="Paste your BibTeX here"></textarea></div>
     <div><textarea id="hayagrivaOutput" placeholder="Your Hayagriva output will appear here" readonly></textarea></div>
   </div>
-  <button class="copy-button" onclick="copyToClipboard()">Copy Output</button>
+  <div class="button-container">
+    <button class="copy-button" onclick="copyToClipboard()">Copy Output</button>
+    <a href="https://github.com/JonasLoos/bibtex-to-hayagriva-webapp" target="_blank" class="info-button" title="View on GitHub">i</a>
+  </div>
   
   <script type="module" src="hayagriva_wrapper/pkg/hayagriva_wrapper.js"></script>
   <script type="module">
@@ -97,11 +150,30 @@ run();
   <script>
 async function copyToClipboard() {
   const text = document.getElementById('hayagrivaOutput').value;
+  const button = document.querySelector('.copy-button');
+  const originalText = button.textContent;
+  
   try {
     await navigator.clipboard.writeText(text);
     console.log('Content copied to clipboard');
+    
+    // Show feedback
+    button.textContent = 'Copied!';
+    button.classList.add('copied');
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('copied');
+    }, 2000);
   } catch (err) {
     console.error('Failed to copy: ', err);
+    
+    // Show error feedback
+    button.textContent = 'Failed to copy';
+    setTimeout(() => {
+      button.textContent = originalText;
+    }, 2000);
   }
 }
   </script>
