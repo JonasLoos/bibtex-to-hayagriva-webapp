@@ -25,3 +25,40 @@ pub fn convert_biblatex_to_hayagriva(bib_str: &str) -> String {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_convert_simple_bibtex() {
+        let bibtex = r#"
+@article{example,
+    title={Test Article},
+    author={John Doe},
+    journal={Test Journal},
+    year={2023},
+}
+"#;
+        
+        let result = convert_biblatex_to_hayagriva(bibtex);
+        
+        // Should not be an error message
+        assert!(!result.starts_with("Error parsing Bibtex"));
+        assert!(!result.starts_with("Error converting to YAML"));
+        
+        // Should contain YAML-like content
+        assert!(result.contains("example"));
+        assert!(result.contains("Test Article"));
+    }
+    
+    #[test]
+    fn test_convert_invalid_bibtex() {
+        let invalid_bibtex = "this is not valid bibtex";
+        
+        let result = convert_biblatex_to_hayagriva(invalid_bibtex);
+        
+        // Should be an empty library since invalid bibtex just results in no entries
+        assert_eq!(result, "Error parsing Bibtex");
+    }
+}
