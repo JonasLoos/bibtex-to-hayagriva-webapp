@@ -93,12 +93,10 @@
     .copy-button:hover {
       background-color: #e9ecef;
       border-color: #adb5bd;
-      transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     .copy-button:active {
       background-color: #dee2e6;
-      transform: translateY(0);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .copy-button.copied {
@@ -109,12 +107,10 @@
     .info-button:hover {
       background-color: #e9ecef;
       border-color: #adb5bd;
-      transform: translateY(-1px);
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
     .info-button:active {
       background-color: #dee2e6;
-      transform: translateY(0);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
   </style>
@@ -148,10 +144,11 @@ async function run() {
 run();
   </script>
   <script>
+
+let button_timeout;
 async function copyToClipboard() {
   const text = document.getElementById('hayagrivaOutput').value;
   const button = document.querySelector('.copy-button');
-  const originalText = button.textContent;
   
   try {
     await navigator.clipboard.writeText(text);
@@ -162,8 +159,9 @@ async function copyToClipboard() {
     button.classList.add('copied');
     
     // Reset after 2 seconds
-    setTimeout(() => {
-      button.textContent = originalText;
+    clearTimeout(button_timeout);
+    button_timeout = setTimeout(() => {
+      button.textContent = "Copy Output";
       button.classList.remove('copied');
     }, 2000);
   } catch (err) {
@@ -171,8 +169,10 @@ async function copyToClipboard() {
     
     // Show error feedback
     button.textContent = 'Failed to copy';
-    setTimeout(() => {
-      button.textContent = originalText;
+    clearTimeout(button_timeout);
+    button_timeout = setTimeout(() => {
+      button.textContent = "Copy Output";
+      button.classList.remove('copied');
     }, 2000);
   }
 }
