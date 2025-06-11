@@ -4,115 +4,116 @@
   <meta charset="utf-8" />
   <title>BibTeX to Hayagriva</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Convert BibTeX/BibLaTeX citations to Typst Hayagriva format easily in your browser.">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: sans-serif;
-      overflow: hidden;
-    }
-    .flex-container {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-    }
-    .flex-container div {
-      min-height: 50%;
-      max-height: 50%;
-      max-width: 100%;
-      min-width: 100%;
-    }
-    #hayagrivaOutput {
-      border-top: 2px solid #ccc;
-    }
-    .button-container {
-      position: absolute;
-      top: 51vh;
-      right: 1vh;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-    .copy-button {
-      border: 1px solid #ddd;
-      padding: 8px 16px;
-      background-color: #f8f9fa;
-      color: #333;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .info-button {
-      border: 1px solid #ddd;
-      padding: 6px 8px;
-      background-color: #f8f9fa;
-      color: #666;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: bold;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-    }
-    @media (min-width: 768px) {
-      .flex-container {
-        flex-direction: row;
-      }
-      .flex-container div {
-        min-height: 100%;
-        max-height: 100%;
-        max-width: 50%;
-        min-width: 50%;
-      }
-      #hayagrivaOutput {
-        border: none;
-        border-left: 2px solid #ccc;
-      }
-      .button-container {
-        top: 1em;
-        right: 1em;
-      }
-    }
-    textarea {
-      width: 94%;
-      height: 94%;
-      resize: none;
-      border: none;
-      padding: 3%;
-    }
-    .copy-button:hover {
-      background-color: #e9ecef;
-      border-color: #adb5bd;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .copy-button:active {
-      background-color: #dee2e6;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .copy-button.copied {
-      background-color: #d4edda;
-      border-color: #c3e6cb;
-      color: #155724;
-    }
-    .info-button:hover {
-      background-color: #e9ecef;
-      border-color: #adb5bd;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    .info-button:active {
-      background-color: #dee2e6;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+  overflow: hidden;
+}
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.flex-container div {
+  min-height: 50%;
+  max-height: 50%;
+  max-width: 100%;
+  min-width: 100%;
+}
+#hayagrivaOutput {
+  border-top: 2px solid #ccc;
+}
+.button-container {
+  position: absolute;
+  top: 51vh;
+  right: 1vh;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.copy-button {
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  background-color: #f8f9fa;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.info-button {
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  background-color: #f8f9fa;
+  color: #666;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+@media (min-width: 768px) {
+  .flex-container {
+    flex-direction: row;
+  }
+  .flex-container div {
+    min-height: 100%;
+    max-height: 100%;
+    max-width: 50%;
+    min-width: 50%;
+  }
+  #hayagrivaOutput {
+    border: none;
+    border-left: 2px solid #ccc;
+  }
+  .button-container {
+    top: 1em;
+    right: 1em;
+  }
+}
+textarea {
+  width: 94%;
+  height: 94%;
+  resize: none;
+  border: none;
+  padding: 3%;
+}
+.copy-button:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.copy-button:active {
+  background-color: #dee2e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.copy-button.copied {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+.info-button:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+.info-button:active {
+  background-color: #dee2e6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
   </style>
 </head>
 <body>
@@ -124,7 +125,7 @@
     <button class="copy-button" onclick="copyToClipboard()">Copy Output</button>
     <a href="https://github.com/JonasLoos/bibtex-to-hayagriva-webapp" target="_blank" class="info-button" title="View on GitHub">i</a>
   </div>
-  
+
   <script type="module" src="hayagriva_wrapper/pkg/hayagriva_wrapper.js"></script>
   <script type="module">
 import init, { convert_biblatex_to_hayagriva } from './hayagriva_wrapper/pkg/hayagriva_wrapper.js';
@@ -144,20 +145,19 @@ async function run() {
 run();
   </script>
   <script>
-
 let button_timeout;
 async function copyToClipboard() {
   const text = document.getElementById('hayagrivaOutput').value;
   const button = document.querySelector('.copy-button');
-  
+
   try {
     await navigator.clipboard.writeText(text);
     console.log('Content copied to clipboard');
-    
+
     // Show feedback
     button.textContent = 'Copied!';
     button.classList.add('copied');
-    
+
     // Reset after 2 seconds
     clearTimeout(button_timeout);
     button_timeout = setTimeout(() => {
@@ -166,7 +166,7 @@ async function copyToClipboard() {
     }, 2000);
   } catch (err) {
     console.error('Failed to copy: ', err);
-    
+
     // Show error feedback
     button.textContent = 'Failed to copy';
     clearTimeout(button_timeout);
